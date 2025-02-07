@@ -4,29 +4,37 @@ import TaskItems from '@/components/TaskItems';
 import { useTaskState, useTaskUpdate } from '@/context/taskContext';
 import styled from 'styled-components';
 import { useGlobalState } from '@/context/globalProvider';
+import Model from '@/components/Model';
 
 const Completed = () => {
-  const { tasks } = useTaskState();
-  const { toggleTaskCompletion, deleteTask, handleEditClick } = useTaskUpdate();
+const { tasks, task, openDialog} = useTaskState();
+  const { handleInputChange, handleEditClick, handleSubmit, toggleTaskCompletion, deleteTask, setOpenDialog } = useTaskUpdate();
   const completedTasks = tasks.filter(task => task.isCompleted);
   const { theme } = useGlobalState();
 
   return (
     <CompletedStyled theme={theme}>
+                        <Model
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        task={task}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleSubmit}
+      />
       <div className='tasks grid'>
         {completedTasks.length > 0 ? (
           completedTasks.map((task) => (
             <TaskItems
-              key={task._id}
-              title={task.title}
-              description={task.description}
-              dueDate={task.dueDate}
-              isCompleted={task.isCompleted}
-              isImportant={task.isImportant}
-              id={task._id}
-              toggleTaskCompletion={toggleTaskCompletion}
-              deleteTask={deleteTask}
-              handleEditClick={handleEditClick}
+            key={task._id}
+            title={task.title}
+            description={task.description}
+            dueDate={task.dueDate}
+            isCompleted={task.isCompleted}
+            isImportant={task.isImportant}
+            id={task._id}
+            toggleTaskCompletion={toggleTaskCompletion}
+            deleteTask={deleteTask}
+            handleEditClick={handleEditClick}
             />
           ))
         ) : (
