@@ -15,7 +15,7 @@ const Sidebar = () => {
   const pathName = usePathname()
   const { user } = useUser();
   const { signOut } = useClerk();
-  const [showSignOut, setShowSignOut] = useState(false);
+  
 
 
   const handleClick=(link)=>{
